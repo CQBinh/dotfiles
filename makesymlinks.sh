@@ -64,19 +64,35 @@ else
 fi
 }
 
+install_vim() {
+  echo -n "Installing vim if need ~ ..."
+  if [ -f /bin/vim -o -f /usr/bin/vim ]; then
+    echo -n "vim has already exists."
+  else
+    sudo apt-get install vim
+  fi
+  echo "done!"
+}
+
 clone_oh_my_zsh_plugins() {
   git clone git://github.com/zsh-users/zsh-autosuggestions.git oh-my-zsh/custom/plugins/zsh-autosuggestions
   git clone git://github.com/zsh-users/zsh-syntax-highlighting.git oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 }
 
 make_git_alias() {
-  echo -n "Making git alias ~ ..."
+  echo -n "Configurating git ~ ..."
+  git config --global user.name "Cao Quang Binh"
+  git config --global user.email "binhcq@asiantech.vn"
+
   git config --global alias.co checkout
   git config --global alias.br branch
   git config --global alias.ci commit
   git config --global alias.st status
+
+  git config --global core.editor "vim"
   echo "done!"
 }
 
+install_vim
 make_git_alias
 install_zsh
